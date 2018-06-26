@@ -10,16 +10,22 @@ class LaborHour {
     var overtime: Long = 0
         private set
 
-    private val maximumRegularHours = TimeUnit.HOURS.toMinutes(8)
+    private val maximumDailyOvertime = TimeUnit.HOURS.toMinutes(8)
+    private val maximumWeeklyOvertime = TimeUnit.HOURS.toMinutes(40)
 
     fun add(startDateTime: LocalDateTime, endDateTime: LocalDateTime) {
         val duration = Duration.between(startDateTime, endDateTime).toMinutes()
 
-        if (duration > maximumRegularHours) {
-            this.normal += maximumRegularHours
-            this.overtime += duration - maximumRegularHours
+        if (duration > this.maximumDailyOvertime) {
+            this.normal += maximumDailyOvertime
+            this.overtime += duration - maximumDailyOvertime
         } else {
             this.normal += duration
+        }
+
+        if (this.normal > this.maximumWeeklyOvertime) {
+            this.overtime += this.normal - this.maximumWeeklyOvertime
+            this.normal = this.maximumWeeklyOvertime
         }
     }
 }

@@ -52,5 +52,22 @@ object LaborHourTest : Spek({
                 Assert.assertEquals(TimeUnit.HOURS.toMinutes(4), laborHours.overtime)
             }
         }
+
+        on("Martina works 48 hours in a week (8 hours Monday - Saturday)") {
+            val laborHours = LaborHour()
+
+            (6..11).forEach {
+                val day = it
+                laborHours.add(
+                        LocalDateTime.of(2018, Month.JUNE, day, 0, 0),
+                        LocalDateTime.of(2018, Month.JUNE, day, 8, 0)
+                )
+            }
+
+            it("should paid 40 hours normal rate and 8 hours overtime pay rate") {
+                Assert.assertEquals(TimeUnit.HOURS.toMinutes(40), laborHours.normal)
+                Assert.assertEquals(TimeUnit.HOURS.toMinutes(8), laborHours.overtime)
+            }
+        }
     }
 })
