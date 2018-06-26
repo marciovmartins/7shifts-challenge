@@ -69,5 +69,19 @@ object LaborHourTest : Spek({
                 Assert.assertEquals(TimeUnit.HOURS.toMinutes(8), laborHours.overtime)
             }
         }
+
+        on("Jeff works over night 8 hours normal rate and 34 minutes overtime pay rate") {
+            val laborHours = LaborHour()
+
+            laborHours.add(
+                    LocalDateTime.of(2017, Month.OCTOBER, 11, 21, 11),
+                    LocalDateTime.of(2017, Month.OCTOBER, 12, 5, 45)
+            )
+
+            it("should paid 8 hours normal rate and 34 minutes overtime pay rate") {
+                Assert.assertEquals(TimeUnit.HOURS.toMinutes(8), laborHours.normal)
+                Assert.assertEquals(34, laborHours.overtime)
+            }
+        }
     }
 })
