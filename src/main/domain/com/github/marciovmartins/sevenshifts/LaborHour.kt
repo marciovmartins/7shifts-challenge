@@ -23,6 +23,10 @@ class LaborHour {
             this.normal += duration
         }
 
+        this.adjustWeeklyOvertime()
+    }
+
+    private fun adjustWeeklyOvertime() {
         if (this.normal > this.maximumWeeklyOvertime) {
             this.overtime += this.normal - this.maximumWeeklyOvertime
             this.normal = this.maximumWeeklyOvertime

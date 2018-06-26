@@ -14,7 +14,7 @@ object LaborHourTest : Spek({
         on("Ryan works 5 days, 8 hours each (40 hours a week)") {
             val laborHours = LaborHour()
 
-            (6..10).forEach {
+            (4..8).forEach {
                 val day = it
                 laborHours.add(
                         LocalDateTime.of(2018, Month.JUNE, day, 9, 0),
@@ -32,14 +32,14 @@ object LaborHourTest : Spek({
             val laborHours = LaborHour()
 
             laborHours.add(
-                    LocalDateTime.of(2018, Month.JUNE, 6, 0, 0),
-                    LocalDateTime.of(2018, Month.JUNE, 6, 12, 0)
+                    LocalDateTime.of(2018, Month.JUNE, 4, 0, 0),
+                    LocalDateTime.of(2018, Month.JUNE, 4, 12, 0)
             )
             laborHours.add(
-                    LocalDateTime.of(2018, Month.JUNE, 7, 0, 0),
-                    LocalDateTime.of(2018, Month.JUNE, 7, 4, 0)
+                    LocalDateTime.of(2018, Month.JUNE, 5, 0, 0),
+                    LocalDateTime.of(2018, Month.JUNE, 5, 4, 0)
             )
-            (8..10).forEach {
+            (6..8).forEach {
                 val day = it
                 laborHours.add(
                         LocalDateTime.of(2018, Month.JUNE, day, 0, 0),
@@ -56,7 +56,7 @@ object LaborHourTest : Spek({
         on("Martina works 48 hours in a week (8 hours Monday - Saturday)") {
             val laborHours = LaborHour()
 
-            (6..11).forEach {
+            (4..9).forEach {
                 val day = it
                 laborHours.add(
                         LocalDateTime.of(2018, Month.JUNE, day, 0, 0),
