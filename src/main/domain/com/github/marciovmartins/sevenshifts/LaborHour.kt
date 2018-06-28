@@ -19,8 +19,10 @@ class LaborHour {
         if (dailyDuration + punch.duration > this.maximumDailyOvertime) {
             if (dailyDuration < this.maximumDailyOvertime) {
                 this.normal += this.maximumDailyOvertime - dailyDuration
+                this.overtime += (dailyDuration + punch.duration) - this.maximumDailyOvertime
+            } else {
+                this.overtime += punch.duration
             }
-            this.overtime += (dailyDuration + punch.duration) - this.maximumDailyOvertime
         } else {
             this.normal += punch.duration
         }
