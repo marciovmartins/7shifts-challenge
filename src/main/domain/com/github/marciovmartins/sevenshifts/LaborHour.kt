@@ -1,8 +1,6 @@
 package com.github.marciovmartins.sevenshifts
 
-import java.time.Duration
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.concurrent.TimeUnit
 
 class LaborHour {
@@ -15,31 +13,30 @@ class LaborHour {
     private val maximumDailyOvertime = TimeUnit.HOURS.toMinutes(8) // TODO: extract to config
     private val maximumWeeklyOvertime = TimeUnit.HOURS.toMinutes(40) // TODO: extract to config
 
-    fun add(startDateTime: LocalDateTime, endDateTime: LocalDateTime) { // TODO: create ValueObject Punch
-        val duration = Duration.between(startDateTime, endDateTime).toMinutes()
-        val dailyDuration = this.getDailyDurationOf(startDateTime)
+    fun add(punch: Punch) {
+        val dailyDuration = this.getDailyDurationOf(punch)
 
-        if (dailyDuration + duration > this.maximumDailyOvertime) {
+        if (dailyDuration + punch.duration > this.maximumDailyOvertime) {
             if (dailyDuration < this.maximumDailyOvertime) {
                 this.normal += this.maximumDailyOvertime - dailyDuration
             }
-            this.overtime += (dailyDuration + duration) - this.maximumDailyOvertime
+            this.overtime += (dailyDuration + punch.duration) - this.maximumDailyOvertime
         } else {
-            this.normal += duration
+            this.normal += punch.duration
         }
 
-        this.incrementDailyHoursOf(startDateTime, duration)
+        this.incrementDailyHoursOf(punch)
         this.adjustWeeklyOvertime()
     }
 
-    private fun getDailyDurationOf(dateTime: LocalDateTime): Long = if (this.dailyDuration.containsKey(dateTime.toLocalDate())) {
-        this.dailyDuration[dateTime.toLocalDate()]!!
+    private fun getDailyDurationOf(punch: Punch): Long = if (this.dailyDuration.containsKey(punch.day)) {
+        this.dailyDuration[punch.day]!!
     } else {
         0L
     }
 
-    private fun incrementDailyHoursOf(dateTime: LocalDateTime, duration: Long) {
-        this.dailyDuration[dateTime.toLocalDate()] = this.getDailyDurationOf(dateTime) + duration
+    private fun incrementDailyHoursOf(punch: Punch) {
+        this.dailyDuration[punch.day] = this.getDailyDurationOf(punch) + punch.duration
     }
 
     private fun adjustWeeklyOvertime() {

@@ -16,10 +16,10 @@ object LaborHourTest : Spek({
 
             (4..8).forEach {
                 val day = it
-                laborHours.add(
+                laborHours.add(Punch(
                         LocalDateTime.of(2018, Month.JUNE, day, 9, 0),
                         LocalDateTime.of(2018, Month.JUNE, day, 17, 0)
-                )
+                ))
             }
 
             it("should pay 40 hours of normal pay") {
@@ -33,20 +33,20 @@ object LaborHourTest : Spek({
         on("Evan works 40 hours for the whole week, but on Monday he works 12 hours and on Tuesday only 4 (and 8 hours Wednesday - Friday)") {
             val laborHours = LaborHour()
 
-            laborHours.add(
+            laborHours.add(Punch(
                     LocalDateTime.of(2018, Month.JUNE, 4, 0, 0),
                     LocalDateTime.of(2018, Month.JUNE, 4, 12, 0)
-            )
-            laborHours.add(
+            ))
+            laborHours.add(Punch(
                     LocalDateTime.of(2018, Month.JUNE, 5, 0, 0),
                     LocalDateTime.of(2018, Month.JUNE, 5, 4, 0)
-            )
+            ))
             (6..8).forEach {
                 val day = it
-                laborHours.add(
+                laborHours.add(Punch(
                         LocalDateTime.of(2018, Month.JUNE, day, 0, 0),
                         LocalDateTime.of(2018, Month.JUNE, day, 8, 0)
-                )
+                ))
             }
 
             it("should pay 36 hours of normal pay") {
@@ -62,10 +62,10 @@ object LaborHourTest : Spek({
 
             (4..9).forEach {
                 val day = it
-                laborHours.add(
+                laborHours.add(Punch(
                         LocalDateTime.of(2018, Month.JUNE, day, 0, 0),
                         LocalDateTime.of(2018, Month.JUNE, day, 8, 0)
-                )
+                ))
             }
 
             it("should paid 40 hours normal rate") {
@@ -79,10 +79,10 @@ object LaborHourTest : Spek({
         on("Jeff works over night 8 hours normal rate and 34 minutes overtime pay rate") {
             val laborHours = LaborHour()
 
-            laborHours.add(
+            laborHours.add(Punch(
                     LocalDateTime.of(2017, Month.OCTOBER, 11, 21, 11),
                     LocalDateTime.of(2017, Month.OCTOBER, 12, 5, 45)
-            )
+            ))
 
             it("should paid 8 hours normal rate ") {
                 Assert.assertEquals(TimeUnit.HOURS.toMinutes(8), laborHours.normal)
@@ -95,14 +95,14 @@ object LaborHourTest : Spek({
         on("Jeff works 8 hours normal rate and 8 hours overtime pay rate") {
             val laborHours = LaborHour()
 
-            laborHours.add(
+            laborHours.add(Punch(
                     LocalDateTime.of(2017, Month.OCTOBER, 11, 0, 0),
                     LocalDateTime.of(2017, Month.OCTOBER, 11, 8, 0)
-            )
-            laborHours.add(
+            ))
+            laborHours.add(Punch(
                     LocalDateTime.of(2017, Month.OCTOBER, 11, 12, 0),
                     LocalDateTime.of(2017, Month.OCTOBER, 11, 20, 0)
-            )
+            ))
 
             it("should paid 8 hours normal rate") {
                 Assert.assertEquals(TimeUnit.HOURS.toMinutes(8), laborHours.normal)
