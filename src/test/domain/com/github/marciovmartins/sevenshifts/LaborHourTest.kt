@@ -22,8 +22,10 @@ object LaborHourTest : Spek({
                 )
             }
 
-            it("should not pay overtime") {
+            it("should pay 40 hours of normal pay") {
                 Assert.assertEquals(TimeUnit.HOURS.toMinutes(40), laborHours.normal)
+            }
+            it("should not pay overtime") {
                 Assert.assertEquals(TimeUnit.HOURS.toMinutes(0), laborHours.overtime)
             }
         }
@@ -47,8 +49,10 @@ object LaborHourTest : Spek({
                 )
             }
 
-            it("should pay 36 hours of normal pay and 4 hours of overtime pay") {
+            it("should pay 36 hours of normal pay") {
                 Assert.assertEquals(TimeUnit.HOURS.toMinutes(36), laborHours.normal)
+            }
+            it("should pay 4 hours of overtime pay") {
                 Assert.assertEquals(TimeUnit.HOURS.toMinutes(4), laborHours.overtime)
             }
         }
@@ -64,8 +68,10 @@ object LaborHourTest : Spek({
                 )
             }
 
-            it("should paid 40 hours normal rate and 8 hours overtime pay rate") {
+            it("should paid 40 hours normal rate") {
                 Assert.assertEquals(TimeUnit.HOURS.toMinutes(40), laborHours.normal)
+            }
+            it("should paid 8 hours overtime pay rate") {
                 Assert.assertEquals(TimeUnit.HOURS.toMinutes(8), laborHours.overtime)
             }
         }
@@ -78,9 +84,31 @@ object LaborHourTest : Spek({
                     LocalDateTime.of(2017, Month.OCTOBER, 12, 5, 45)
             )
 
-            it("should paid 8 hours normal rate and 34 minutes overtime pay rate") {
+            it("should paid 8 hours normal rate ") {
                 Assert.assertEquals(TimeUnit.HOURS.toMinutes(8), laborHours.normal)
+            }
+            it("should paid 34 minutes overtime pay rate") {
                 Assert.assertEquals(34, laborHours.overtime)
+            }
+        }
+
+        on("Jeff works 8 hours normal rate and 8 hours overtime pay rate") {
+            val laborHours = LaborHour()
+
+            laborHours.add(
+                    LocalDateTime.of(2017, Month.OCTOBER, 11, 0, 0),
+                    LocalDateTime.of(2017, Month.OCTOBER, 11, 8, 0)
+            )
+            laborHours.add(
+                    LocalDateTime.of(2017, Month.OCTOBER, 11, 12, 0),
+                    LocalDateTime.of(2017, Month.OCTOBER, 11, 20, 0)
+            )
+
+            it("should paid 8 hours normal rate") {
+                Assert.assertEquals(TimeUnit.HOURS.toMinutes(8), laborHours.normal)
+            }
+            it("should paid 8 hours overtime pay rate") {
+                Assert.assertEquals(TimeUnit.HOURS.toMinutes(8), laborHours.overtime)
             }
         }
     }
