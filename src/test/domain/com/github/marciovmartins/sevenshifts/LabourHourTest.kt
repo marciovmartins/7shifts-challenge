@@ -16,9 +16,11 @@ object LabourHourTest : Spek({
                 TimeUnit.HOURS.toMinutes(40)
         )
         val location = Location(labourSettings)
+        val user = User(location)
 
         on("Ryan works 5 days, 8 hours each (40 hours a week)") {
-            val labourHours = LabourHour(location)
+
+            val labourHours = LabourHour(user)
 
             (4..8).forEach {
                 val day = it
@@ -37,7 +39,7 @@ object LabourHourTest : Spek({
         }
 
         on("Evan works 40 hours for the whole week, but on Monday he works 12 hours and on Tuesday only 4 (and 8 hours Wednesday - Friday)") {
-            val labourHours = LabourHour(location)
+            val labourHours = LabourHour(user)
 
             labourHours.add(Punch(
                     LocalDateTime.of(2018, Month.JUNE, 4, 0, 0),
@@ -64,7 +66,7 @@ object LabourHourTest : Spek({
         }
 
         on("Martina works 48 hours in a week (8 hours Monday - Saturday)") {
-            val labourHours = LabourHour(location)
+            val labourHours = LabourHour(user)
 
             (4..9).forEach {
                 val day = it
@@ -83,7 +85,7 @@ object LabourHourTest : Spek({
         }
 
         on("Jeff works over night 8 hours normal rate and 34 minutes overtime pay rate") {
-            val labourHours = LabourHour(location)
+            val labourHours = LabourHour(user)
 
             labourHours.add(Punch(
                     LocalDateTime.of(2017, Month.OCTOBER, 11, 21, 11),
@@ -99,7 +101,7 @@ object LabourHourTest : Spek({
         }
 
         on("Jeff works 8 hours normal rate and 8 hours overtime pay rate") {
-            val labourHours = LabourHour(location)
+            val labourHours = LabourHour(user)
 
             labourHours.add(Punch(
                     LocalDateTime.of(2017, Month.OCTOBER, 11, 0, 0),
@@ -119,7 +121,7 @@ object LabourHourTest : Spek({
         }
 
         on("Jeff works 12 hours (8 hours normal rate + 4 hours overtime pay rate) and another 4 hours overtime") {
-            val labourHours = LabourHour(location)
+            val labourHours = LabourHour(user)
 
             labourHours.add(Punch(
                     LocalDateTime.of(2017, Month.OCTOBER, 11, 0, 0),
