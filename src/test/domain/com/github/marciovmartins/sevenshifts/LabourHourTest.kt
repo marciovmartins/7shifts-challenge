@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit
 
 object LabourHourTest : Spek({
     describe("Location settings have overtime starting at 8 hours daily, or 40 hours weekly") {
+        val userId = 1234L
         val labourSettings = LabourSettings(
                 TimeUnit.HOURS.toMinutes(8),
                 TimeUnit.HOURS.toMinutes(40)
@@ -23,7 +24,8 @@ object LabourHourTest : Spek({
                 val day = it
                 labourHours.add(Punch(
                         LocalDateTime.of(2018, Month.JUNE, day, 9, 0),
-                        LocalDateTime.of(2018, Month.JUNE, day, 17, 0)
+                        LocalDateTime.of(2018, Month.JUNE, day, 17, 0),
+                        userId
                 ))
             }
 
@@ -40,17 +42,20 @@ object LabourHourTest : Spek({
 
             labourHours.add(Punch(
                     LocalDateTime.of(2018, Month.JUNE, 4, 0, 0),
-                    LocalDateTime.of(2018, Month.JUNE, 4, 12, 0)
+                    LocalDateTime.of(2018, Month.JUNE, 4, 12, 0),
+                    userId
             ))
             labourHours.add(Punch(
                     LocalDateTime.of(2018, Month.JUNE, 5, 0, 0),
-                    LocalDateTime.of(2018, Month.JUNE, 5, 4, 0)
+                    LocalDateTime.of(2018, Month.JUNE, 5, 4, 0),
+                    userId
             ))
             (6..8).forEach {
                 val day = it
                 labourHours.add(Punch(
                         LocalDateTime.of(2018, Month.JUNE, day, 0, 0),
-                        LocalDateTime.of(2018, Month.JUNE, day, 8, 0)
+                        LocalDateTime.of(2018, Month.JUNE, day, 8, 0),
+                        userId
                 ))
             }
 
@@ -69,7 +74,8 @@ object LabourHourTest : Spek({
                 val day = it
                 labourHours.add(Punch(
                         LocalDateTime.of(2018, Month.JUNE, day, 0, 0),
-                        LocalDateTime.of(2018, Month.JUNE, day, 8, 0)
+                        LocalDateTime.of(2018, Month.JUNE, day, 8, 0),
+                        userId
                 ))
             }
 
@@ -86,7 +92,8 @@ object LabourHourTest : Spek({
 
             labourHours.add(Punch(
                     LocalDateTime.of(2017, Month.OCTOBER, 11, 21, 11),
-                    LocalDateTime.of(2017, Month.OCTOBER, 12, 5, 45)
+                    LocalDateTime.of(2017, Month.OCTOBER, 12, 5, 45),
+                    userId
             ))
 
             it("should paid 8 hours normal rate ") {
@@ -102,11 +109,13 @@ object LabourHourTest : Spek({
 
             labourHours.add(Punch(
                     LocalDateTime.of(2017, Month.OCTOBER, 11, 0, 0),
-                    LocalDateTime.of(2017, Month.OCTOBER, 11, 8, 0)
+                    LocalDateTime.of(2017, Month.OCTOBER, 11, 8, 0),
+                    userId
             ))
             labourHours.add(Punch(
                     LocalDateTime.of(2017, Month.OCTOBER, 11, 12, 0),
-                    LocalDateTime.of(2017, Month.OCTOBER, 11, 20, 0)
+                    LocalDateTime.of(2017, Month.OCTOBER, 11, 20, 0),
+                    userId
             ))
 
             it("should paid 8 hours normal rate") {
@@ -122,11 +131,13 @@ object LabourHourTest : Spek({
 
             labourHours.add(Punch(
                     LocalDateTime.of(2017, Month.OCTOBER, 11, 0, 0),
-                    LocalDateTime.of(2017, Month.OCTOBER, 11, 12, 0)
+                    LocalDateTime.of(2017, Month.OCTOBER, 11, 12, 0),
+                    userId
             ))
             labourHours.add(Punch(
                     LocalDateTime.of(2017, Month.OCTOBER, 11, 16, 0),
-                    LocalDateTime.of(2017, Month.OCTOBER, 11, 20, 0)
+                    LocalDateTime.of(2017, Month.OCTOBER, 11, 20, 0),
+                    userId
             ))
 
             it("should paid 8 hours normal rate") {
