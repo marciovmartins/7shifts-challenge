@@ -1,17 +1,16 @@
 package com.github.marciovmartins.sevenshifts
 
 import java.time.LocalDate
-import java.util.concurrent.TimeUnit
 
-class LaborHour {
+class LabourHour(private val location: Location) {
     var normal: Long = 0
         private set
     var overtime: Long = 0
         private set
     private val dailyDuration = HashMap<LocalDate, Long>()
 
-    private val maximumDailyOvertime = TimeUnit.HOURS.toMinutes(8) // TODO: extract to config
-    private val maximumWeeklyOvertime = TimeUnit.HOURS.toMinutes(40) // TODO: extract to config
+    private val maximumDailyOvertime = this.location.labourSettings.dailyOvertimeThreshold
+    private val maximumWeeklyOvertime = this.location.labourSettings.weeklyOvertimeThreshold
 
     fun add(punch: Punch) {
         val dailyDuration = this.getDailyDurationOf(punch)
