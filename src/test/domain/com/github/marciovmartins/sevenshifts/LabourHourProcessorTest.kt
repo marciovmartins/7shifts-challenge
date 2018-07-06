@@ -24,7 +24,7 @@ object LabourHourProcessorTest : Spek({
                 )
         )
 
-        val labourHoursMocked = mock<LabourHour>()
+        val labourHoursMocked = mock<LabourHours>()
         val user = mock<User>()
         whenever(user.labourHours).thenReturn(labourHoursMocked)
 
